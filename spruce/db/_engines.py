@@ -51,7 +51,7 @@ def engine_from_settings(settings,
                          *create_engine_args,
                          **create_engine_kwargs):
 
-    """A interaction engine derived from persistent settings
+    """A interaction engine derived from application settings
 
     .. note::
         This is a convenience function that uses \
@@ -59,14 +59,14 @@ def engine_from_settings(settings,
         :func:`engine_from_connparams`.
 
     :param settings:
-        Persistent settings.
-    :type settings: :class:`spruce.settings.Settings
-                            <spruce.settings._settings.Settings>`
+        Application settings open for reading.
+    :type settings:
+        :class:`spruce.settings.Settings <spruce.settings._core.Settings>`
 
     :param group:
         The name of a settings group within the the given *settings*
         object's current group.
-    :type group: :class:`str` or null
+    :type group: :obj:`str` or null
 
     :param str dialect_key:
         The persistent settings key whose value is the SQL dialect name.
@@ -93,7 +93,7 @@ def engine_from_settings(settings,
     :param other_params_keys:
         Persistent settings keys of additional parameters that are passed to
         the SQL driver when establishing a connection.
-    :type other_params_keys: [:class:`str`] or null
+    :type other_params_keys: [:obj:`str`] or null
 
     :param create_engine_args:
         Additional arguments that are passed to
@@ -144,42 +144,42 @@ def std_engine(name, settings, dialect=None, driver=None, server=None,
         The name of a database connection in standard settings.
 
     :param settings:
-        Persistent settings.
-    :type settings: :class:`spruce.settings.Settings
-                            <spruce.settings._settings.Settings>`
+        Application settings open for reading.
+    :type settings:
+        :class:`spruce.settings.Settings <spruce.settings._core.Settings>`
 
     :param dialect:
         The SQL dialect name.
-    :type dialect: :class:`str` or null
+    :type dialect: :obj:`str` or null
 
     :param driver:
         The SQL driver name.
-    :type driver: :class:`str` or null
+    :type driver: :obj:`str` or null
 
     :param server:
         The server's IP address or DNS name.
-    :type server: :class:`str` or null
+    :type server: :obj:`str` or null
 
     :param port:
         The port number.
-    :type port: int or :class:`str` or null
+    :type port: int or :obj:`str` or null
 
     :param user:
         The username.
-    :type user: :class:`str` or null
+    :type user: :obj:`str` or null
 
     :param password:
         The password.
-    :type password: :class:`str` or null
+    :type password: :obj:`str` or null
 
     :param db:
         The database name.
-    :type db: :class:`str` or null
+    :type db: :obj:`str` or null
 
     :param other_params:
         Additional parameters that are passed to the SQL driver when
         establishing a connection.
-    :type other_params: {:class:`object`: :class:`object`}
+    :type other_params: {:obj:`object`: :obj:`object`}
 
     :param create_engine_args:
         Additional arguments that are passed to

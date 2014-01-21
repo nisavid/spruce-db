@@ -24,22 +24,22 @@ def connparams_from_settings(settings,
                              other_params_keys=None,
                              required=False):
 
-    """Database connection parameters derived from persistent settings.
+    """Database connection parameters derived from persistent settings
 
     The given *\*_key* parameters are used to look up the values of the
     database connection parameters.  The keys are resolved relative to the
     given *group* (if any) within the given *settings* object's
-    :attr:`current group <spruce.settings._settings.Settings.group>`.
+    :attr:`current group <spruce.settings._core.Settings.group>`.
 
     :param settings:
-        Persistent settings.
-    :type settings: :class:`spruce.settings.Settings
-                            <spruce.settings._settings.Settings>`
+        Application settings open for reading.
+    :type settings:
+        :class:`spruce.settings.Settings <spruce.settings._core.Settings>`
 
     :param group:
         The name of the settings group (within the given *settings* object's
         current group) that contains the settings.
-    :type group: str or None
+    :type group: :obj:`str` or null
 
     :param str dialect_key:
         The persistent settings key whose value is the SQL dialect name.
@@ -66,7 +66,7 @@ def connparams_from_settings(settings,
     :param other_params_keys:
         Persistent settings keys of additional parameters that are passed to
         the SQL driver when establishing a connection.
-    :type other_params_keys: [str] or None
+    :type other_params_keys: [:obj:`str`] or null
 
     :param bool required:
         Whether a valid set of connection parameters is required to be
@@ -75,7 +75,7 @@ def connparams_from_settings(settings,
     :rtype: :class:`connparams`
 
     :raise spruce.settings.MissingRequiredSettingsValue:
-        Raised if *required* is ``True`` and *dialect_key* is missing in the
+        Raised if *required* is true and *dialect_key* is missing in the
         given *group* of *settings*.
 
     .. seealso:: :func:`connparams`
@@ -103,20 +103,20 @@ def std_connparams(name, settings, dialect=None, driver=None, server=None,
                    port=None, user=None, password=None, db=None,
                    required_in_settings=False, **other_params):
 
-    """Database connection parameters derived from standard settings.
+    """Database connection parameters derived from standard settings
 
     The parameters are constructed as follows:
 
-    #. The parameters are read from persistent settings in the
-       ``dbconn/__default__`` group if they exist there.
+      #. The parameters are read from persistent settings in the
+         ``dbconn/__default__`` group if they exist there.
 
-    #. The parameters are read from persistent settings in the
-       :samp:`dbconn/{name}` group if they exist there.  These override any
-       previously acquired corresponding parameters.
+      #. The parameters are read from persistent settings in the
+         :samp:`dbconn/{name}` group if they exist there.  These override
+         any previously acquired corresponding parameters.
 
-    #. Any parameters that are provided as arguments to this function are
-       applied so that they override any previously acquired corresponding
-       parameters.
+      #. Any parameters that are provided as arguments to this function are
+         applied so that they override any previously acquired corresponding
+         parameters.
 
     :param str name:
         The name of a database connection in standard settings.
@@ -129,7 +129,7 @@ def std_connparams(name, settings, dialect=None, driver=None, server=None,
     :rtype: :class:`connparams`
 
     :raise spruce.settings.MissingRequiredSettingsValue:
-        Raised if *required_in_settings* is ``True`` and *dialect_key* is
+        Raised if *required_in_settings* is true and *dialect_key* is
         missing in both the ``dbconn/__default__`` and the
         :samp:`dbconn/{name}` groups of *settings*.
 
@@ -162,38 +162,38 @@ def std_connparams(name, settings, dialect=None, driver=None, server=None,
 
 class connparams(object):
 
-    """Database connection parameters.
+    """Database connection parameters
 
-    The :func:`str` representation of a :class:`!connparams` object is a
-    database URL, also known as a database source name (DSN).
+    The :obj:`str` representation of a :class:`!connparams` object is a
+    database URI, also known as a database source name (DSN).
 
     :param dialect:
         The SQL dialect name.
-    :type dialect: :class:`str` or null
+    :type dialect: :obj:`str` or null
 
     :param driver:
         The SQL driver name.
-    :type driver: :class:`str` or null
+    :type driver: :obj:`str` or null
 
     :param server:
         The IP address or DNS name.
-    :type server: :class:`str` or null
+    :type server: :obj:`str` or null
 
     :param port:
         The port number.
-    :type port: ~\ :class:`int` or null
+    :type port: ~\ :obj:`int` or null
 
     :param user:
         The username.
-    :type user: :class:`str` or null
+    :type user: :obj:`str` or null
 
     :param password:
         The password.
-    :type password: :class:`str` or null
+    :type password: :obj:`str` or null
 
     :param db:
         The database name.
-    :type db: :class:`str` or null
+    :type db: :obj:`str` or null
 
     :param other_params:
         Additional parameters that are passed to the SQL driver when
@@ -201,13 +201,15 @@ class connparams(object):
 
     :raise TypeError:
         Raised if a non-null *port* is given that is of a type that cannot
-        be converted to an :class:`int`.
+        be converted to an :obj:`int`.
 
     :raise ValueError:
         Raised if
-            * *dialect* is an empty string or
-            * a non-null *port* is given that cannot be converted to an
-              :class:`int`.
+
+          * *dialect* is an empty string or
+
+          * a non-null *port* is given that cannot be converted to an
+            :obj:`int`.
 
     """
 
@@ -266,7 +268,7 @@ class connparams(object):
     def db(self):
         """The database name
 
-        :type: :class:`str` or null
+        :type: :obj:`str` or null
 
         """
         return self._db
@@ -283,7 +285,7 @@ class connparams(object):
     def dialect(self):
         """The SQL dialect name
 
-        :type: :class:`str` or null
+        :type: :obj:`str` or null
 
         :raise ValueError:
             Raised if an empty string is assigned.
@@ -306,7 +308,7 @@ class connparams(object):
     def driver(self):
         """The SQL driver name
 
-        :type: :class:`str` or null
+        :type: :obj:`str` or null
 
         """
         return self._driver
@@ -323,18 +325,18 @@ class connparams(object):
     def other_params(self):
         """
         Additional parameters that are passed to the SQL driver when
-        establishing a connection.
+        establishing a connection
 
-        :type: {:class:`str`: :class:`object`}
+        :type: {:obj:`str`: :obj:`object`}
 
         """
         return self._other_params
 
     @property
     def password(self):
-        """The password.
+        """The password
 
-        :type: :class:`str` or null
+        :type: :obj:`str` or null
 
         """
         return self._password
@@ -349,17 +351,17 @@ class connparams(object):
 
     @property
     def port(self):
-        """The port number used to connect to the database server.
+        """The port number used to connect to the database server
 
-        :type: ~\ :class:`int` or null
+        :type: ~\ :obj:`int` or null
 
         :raise TypeError:
             Raised if a non-null value is assigned that is of a type that
-            cannot be converted to an :class:`int`.
+            cannot be converted to an :obj:`int`.
 
         :raise ValueError:
             Raised if a non-null value is assigned that cannot be converted to
-            an :class:`int`.
+            an :obj:`int`.
 
         """
         return self._port
@@ -375,7 +377,7 @@ class connparams(object):
     def require_valid(self):
         """
         Require that these connection parameters contain enough information to
-        attempt a connection.
+        attempt a connection
 
         :raise spruce.db.InsufficientConnSettings:
             Raised if :attr:`valid` is false.
@@ -390,11 +392,11 @@ class connparams(object):
 
     @property
     def server(self):
-        """The address of the database server.
+        """The address of the database server
 
         This is an IP address or DNS name.
 
-        :type: :class:`str` or null
+        :type: :obj:`str` or null
 
         .. note:: **TODO:**
             raise :exc:`ValueError` if a non-null value is assigned that is
@@ -409,7 +411,7 @@ class connparams(object):
         self._server = server
 
     def update(self, other):
-        """Update these connection parameters with values from some others.
+        """Update these connection parameters with values from some others
 
         This causes any non-null values assigned to the *other* parameters'
         properties to replace the corresponding values of these ones.
@@ -438,9 +440,9 @@ class connparams(object):
 
     @property
     def user(self):
-        """The username.
+        """The username
 
-        :type: :class:`str` or null
+        :type: :obj:`str` or null
 
         """
         return self._user
@@ -453,9 +455,9 @@ class connparams(object):
     def valid(self):
         """
         Whether these connection parameters contain enough information to
-        attempt a connection.
+        attempt a connection
 
-        :type: :class:`bool`
+        :type: :obj:`bool`
 
         .. seealso:: :meth:`require_valid`
 
