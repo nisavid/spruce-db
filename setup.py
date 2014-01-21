@@ -51,7 +51,8 @@ TROVE_CLASSIFIERS = \
 
 SETUP_DEPS = ()
 
-INSTALL_DEPS = ('sqlalchemy',)
+INSTALL_DEPS = ('sqlalchemy', 'spruce-collections', 'spruce-lang',
+                'spruce-settings')
 
 EXTRAS_DEPS = {}
 
