@@ -3,7 +3,6 @@
 __copyright__ = "Copyright (C) 2014 Ivan D Vasin"
 __docformat__ = "restructuredtext"
 
-import spruce.settings as _settings
 import sqlalchemy as _sqla
 
 from . import _connparams
@@ -207,15 +206,12 @@ def std_engine(name, settings, dialect=None, driver=None, server=None,
     # NOTE: even though the parameters passed in to this function are used as
     #   overrides below, we set them as defaults here so that we can take
     #   advantage of ``std_connparams(..., required_in_settings=True, ...)``
-    settings.begin_group('dbconn/{}'.format(name))
-    try:
+    with settings.ingroup('dbconn/{}'.format(name)):
         for name_ in ('dialect', 'driver', 'server', 'port', 'user',
                       'password', 'db', 'other_params'):
             value = locals()[name_]
             if value is not None:
                 settings.defaults[settings.absname(name_)] = value
-    finally:
-        settings.end_group()
 
     connparams = _connparams.std_connparams(name,
                                             settings=settings,

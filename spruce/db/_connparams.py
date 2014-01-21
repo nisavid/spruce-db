@@ -82,9 +82,7 @@ def connparams_from_settings(settings,
 
     """
 
-    if group:
-        settings.begin_group(group)
-    try:
+    with settings.ingroup(group):
         dialect = settings.value(dialect_key, required=required)
         driver = settings.value(driver_key)
         server = settings.value(server_key)
@@ -96,9 +94,6 @@ def connparams_from_settings(settings,
         if other_params_keys:
             for key in other_params_keys:
                 other_params[key] = settings.value(key)
-    finally:
-        if group:
-            settings.end_group()
 
     return connparams(dialect=dialect, driver=driver, server=server, port=port,
                       user=user, password=password, db=db, **other_params)
@@ -142,13 +137,10 @@ def std_connparams(name, settings, dialect=None, driver=None, server=None,
 
     """
 
-    settings.begin_group('dbconn')
-    try:
-        default_connparams = \
-            connparams_from_settings(settings, '__default__')
+    with settings.ingroup('dbconn'):
+        default_connparams = connparams_from_settings(settings, '__default__')
 
-        settings.begin_group(name)
-        try:
+        with settings.ingroup(name):
             if default_connparams:
                 for name_ in ('dialect', 'driver', 'server', 'port', 'user',
                               'password', 'db', 'other_params'):
@@ -159,10 +151,6 @@ def std_connparams(name, settings, dialect=None, driver=None, server=None,
             connparams_ = \
                 connparams_from_settings(settings,
                                          required=required_in_settings)
-        finally:
-            settings.end_group()
-    finally:
-        settings.end_group()
 
     args_connparams = connparams(dialect=dialect, driver=driver, server=server,
                                  port=port, user=user, password=password,
