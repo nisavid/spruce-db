@@ -104,18 +104,13 @@ def connparams_from_settings(settings,
                       user=user, password=password, db=db, **other_params)
 
 
-def std_connparams(name, settings=None, dialect=None, driver=None, server=None,
+def std_connparams(name, settings, dialect=None, driver=None, server=None,
                    port=None, user=None, password=None, db=None,
                    required_in_settings=False, **other_params):
 
     """Database connection parameters derived from standard settings.
 
     The parameters are constructed as follows:
-
-    #. If a *settings* object is not provided, a default one is created
-       using the zero-argument form of
-       :class:`spruce.settings.Settings \
-               <spruce.settings._settings.Settings>`.
 
     #. The parameters are read from persistent settings in the
        ``dbconn/__default__`` group if they exist there.
@@ -146,9 +141,6 @@ def std_connparams(name, settings=None, dialect=None, driver=None, server=None,
     .. seealso:: :func:`connparams_from_settings`, :class:`connparams`
 
     """
-
-    if not settings:
-        settings = _settings.Settings()
 
     settings.begin_group('dbconn')
     try:
