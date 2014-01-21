@@ -15,18 +15,31 @@ class Error(RuntimeError, Exception):
 
 
 class InsufficientConnSettings(Error):
-    """The connection settings are insufficient.
+    """The connection settings are insufficient
 
-    :param <str> missing_attrs:
+    :param missing_attrs:
         The required attributes that are missing.
+    :type missing_attrs: ~[:obj:`str`]
 
     """
-    def __init__(self, missing_attrs):
+    def __init__(self, missing_attrs, message=None, *args):
+        super(InsufficientConnSettings, self).__init__(missing_attrs, message,
+                                                       *args)
+        self._message = message
+        self._missing_attrs = missing_attrs
 
-        self.missing_attrs = missing_attrs
-
+    def __str__(self):
         message = 'insufficient connection settings'
-        if missing_attrs:
-            message += ' (missing attributes {})'.format(missing_attrs)
+        if self.missing_attrs:
+            message += u' (missing attributes {})'.format(self.missing_attrs)
+        if self.message:
+            message += u': {}'.format(self.message)
+        return message
 
-        super(InsufficientConnSettings, self).__init__(message)
+    @property
+    def message(self):
+        return self._message
+
+    @property
+    def missing_attrs(self):
+        return self._missing_attrs
