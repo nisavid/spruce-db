@@ -4,7 +4,7 @@
 
 """
 
-__copyright__ = "Copyright (C) 2013 Ivan D Vasin"
+__copyright__ = "Copyright (C) 2014 Ivan D Vasin"
 __docformat__ = "restructuredtext"
 
 from sqlalchemy.ext.hybrid import hybrid_property as _sqla_hybrid_property
