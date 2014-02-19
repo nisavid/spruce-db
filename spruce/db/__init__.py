@@ -10,3 +10,4 @@ from ._connparams import *
 from ._engines import *
 from ._exc import *
 from ._time import *
+from ._types import *
