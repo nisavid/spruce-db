@@ -15,7 +15,7 @@ NAME_NOPREFIX = 'db'
 
 NAME = 'Spruce-' + NAME_NOPREFIX
 
-VERSION = '0.2.2'
+VERSION = '0.2.3'
 
 SITE_URI = ''
 
