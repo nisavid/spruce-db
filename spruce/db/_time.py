@@ -3,10 +3,7 @@
 __copyright__ = "Copyright (C) 2014 Ivan D Vasin"
 __docformat__ = "restructuredtext"
 
-from spruce.datetime \
-    import datetime_from_unixtime as _datetime_from_unixtime, \
-           localtime_datetime_from_unixtime \
-               as _localtime_datetime_from_unixtime
+import spruce.datetime as _dt
 import sqlalchemy as _sqla
 
 
@@ -24,7 +21,7 @@ def current_datetime(engine):
     :rtype: :class:`datetime.datetime`
 
     """
-    return _datetime_from_unixtime(current_unixtime(engine=engine))
+    return _dt.datetime_from_unixtime(current_unixtime(engine=engine))
 
 
 def current_localtime_datetime(engine):
@@ -42,7 +39,8 @@ def current_localtime_datetime(engine):
     :rtype: :class:`datetime.datetime`
 
     """
-    return _localtime_datetime_from_unixtime(current_unixtime(engine=engine))
+    return _dt.localtime_datetime_from_unixtime(current_unixtime(engine=
+                                                                     engine))
 
 
 def current_naive_datetime(engine):
